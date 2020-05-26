@@ -1,0 +1,31 @@
+ifndef NDK_HOME
+$(error NDK_HOME parameter not set.)
+endif
+
+TARGET_OS = android
+TARGET_ARCH = aarch64
+
+ifdef OS
+TOOLCHAIN_POSTFIX := .cmd
+endif
+
+export CC = aarch64-linux-android21-clang$(TOOLCHAIN_POSTFIX)
+export CXX = aarch64-linux-android21-clang++$(TOOLCHAIN_POSTFIX)
+export CPP = aarch64-linux-android-cpp
+export AR = aarch64-linux-android-ar
+export LD = aarch64-linux-android-ld
+export STRIP = aarch64-linux-android-strip
+export OBJCOPY = aarch64-linux-android-objcopy
+
+SYSROOT := --sysroot=$(NDK_HOME)/sysroot -I$(NDK_HOME)/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/c++/v1 \
+				--gcc-toolchain=$(NDK_HOME)/toolchains/aarch64-linux-android-4.9
+
+
+PLATFORM_FLAGS = $(SYSROOT) -DPOCO_ANDROID -DPOCO_NO_FPENVIRONMENT -DPOCO_NO_WSTRING -DPOCO_NO_SHAREDMEMORY
+STD_FLAGS = $(PLATFORM_FLAGS) -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -fdata-sections -fPIE
+STD_CFLAGS = $(STD_FLAGS)
+STD_CXXFLAGS = -std=c++11 $(STD_FLAGS)
+STD_LDFLAGS = -L $(NDK_HOME)/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/aarch64-linux-android/21
+STD_INCLUDE = -I.
+STD_LIBDIRS = $(STD_LDFLAGS)
+STD_LIBS = -lssl -lcrypto
