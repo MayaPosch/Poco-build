@@ -8,14 +8,17 @@ CFLAGS := $(STD_CFLAGS) $(INCLUDE)
 CXXFLAGS := $(STD_CXXFLAGS) $(INCLUDE)
 SHARED_FLAGS := -fPIC -shared -Wl,-soname,$(OUTPUT).so.$(VERSION)
 
-OBJROOT := $(TOP)/build/$(TARGET)/poco/obj
+OBJROOT := ../build/$(TARGET)/poco/obj
 INCLOUT := $(TOP)/build/$(TARGET)/poco
 SOURCES := $(wildcard src/*.cpp)
 HEADERS := $(addprefix $(INCLOUT)/,$(wildcard include/Poco/Net/*.h))
+LD_FLAGS := $(STD_LDFLAGS)
 LIBS := -L$(TOP)/build/$(TARGET)/poco/lib -lPocoFoundation $(STD_LIBS) 
 
 OBJECTS := $(addprefix $(OBJROOT)/net/static/,$(notdir $(SOURCES:.cpp=.o)))
 SHARED_OBJECTS := $(addprefix $(OBJROOT)/net/shared/,$(notdir $(SOURCES:.cpp=.o)))
+
+$(file >$(TOP)/build/$(TARGET)/poco/obj/net/shared/s_objects.psr, $(SHARED_OBJECTS))
 
 all: makedir $(TOP)/build/$(TARGET)/poco/lib/$(OUTPUT).a \
 		$(TOP)/build/$(TARGET)/poco/lib/$(OUTPUT).so.$(VERSION) $(HEADERS)
@@ -42,7 +45,7 @@ $(TOP)/build/$(TARGET)/poco/lib/$(OUTPUT).a: $(OBJECTS)
 	$(STRIP) -S --strip-unneeded $@
 	
 $(TOP)/build/$(TARGET)/poco/lib/$(OUTPUT).so.$(VERSION): $(SHARED_OBJECTS)
-	$(CXX) -o $@ $(CXXFLAGS) $(SHARED_FLAGS) $(SHARED_OBJECTS) $(LIBS)
+	$(CXX) -o $@ $(LD_FLAGS) $(SHARED_FLAGS) @$(TOP)/build/$(TARGET)/poco/obj/net/shared/s_objects.psr $(LIBS)
 	cp $@ $@.debug
 	$(STRIP) -S --strip-unneeded $@
 	

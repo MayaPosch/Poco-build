@@ -7,12 +7,13 @@ INCLUDE = $(STD_INCLUDE) -Iinclude -I$(TOP)/build/$(TARGET)/poco/include
 CFLAGS = $(STD_CFLAGS) $(INCLUDE)
 SHARED_FLAGS := -fPIC -shared -Wl,-soname,$(OUTPUT).so.$(VERSION)
 
-OBJROOT = $(TOP)/build/$(TARGET)/poco/obj
+OBJROOT = ../build/$(TARGET)/poco/obj
 INCLOUT = $(TOP)/build/$(TARGET)/poco
 
 CSOURCES := $(wildcard src/*.c)
 SOURCES := $(wildcard src/*.cpp)
 HEADERS := $(addprefix $(INCLOUT)/,$(wildcard include/Poco/JSON/*.h))
+LD_FLAGS := $(STD_LDFLAGS)
 LIBS := -L$(TOP)/build/$(TARGET)/poco/lib -lPocoFoundation $(STD_LIBS) 
 
 COBJECTS := $(addprefix $(OBJROOT)/json/static/,$(notdir $(CSOURCES:.c=.o)))
@@ -51,7 +52,7 @@ $(TOP)/build/$(TARGET)/poco/lib/$(OUTPUT).a: $(OBJECTS) $(COBJECTS)
 	$(STRIP) -S --strip-unneeded $@
 	
 $(TOP)/build/$(TARGET)/poco/lib/$(OUTPUT).so.$(VERSION): $(SHARED_OBJECTS) $(SHARED_COBJECTS)
-	$(CXX) -o $@ $(CFLAGS) $(SHARED_FLAGS) $(SHARED_OBJECTS) $(SHARED_COBJECTS) $(LIBS)
+	$(CXX) -o $@ $(LD_FLAGS) $(SHARED_FLAGS) $(SHARED_OBJECTS) $(SHARED_COBJECTS) $(LIBS)
 	cp $@ $@.debug
 	$(STRIP) -S --strip-unneeded $@
 	

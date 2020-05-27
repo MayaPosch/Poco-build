@@ -13,7 +13,7 @@ INCLOUT := $(TOP)/build/$(TARGET)/poco
 #SOURCES := $(wildcard src/*.cpp)
 HEADERS := $(addprefix $(INCLOUT)/,$(wildcard include/Poco/*.h)) $(addprefix $(INCLOUT)/,$(wildcard include/Poco/Dynamic/*.h))
 LD_FLAGS := $(STD_LDFLAGS)
-LIBS := $(STD_LIBS) -lz -lpcre
+LIBS := $(STD_LIBS) -lz
 
 # Filter out files (OpenVMS-specific)
 #SOURCES := $(filter-out src/OpcomChannel.cpp, $(SOURCES))
