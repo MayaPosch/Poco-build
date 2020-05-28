@@ -49,7 +49,7 @@ net:
 util:
 	$(MAKE) -C ./Util
 
-clean: clean-json clean-foundation clean-net
+clean: clean-json clean-foundation clean-net clean-util
 
 clean-foundation:
 	$(MAKE) -C ./Foundation clean
