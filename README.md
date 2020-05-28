@@ -54,8 +54,8 @@ Any potential target that supports either GCC or Clang with a C++ language level
 
 ## Issues ##
 
-Current issues that need resolving at some point are:
-
 * Android-aarch64 target is limited to Windows hosts: needs to have the Linux & MacOS NDK paths added.
 * Shared libraries produced for Windows targets are not valid DLLs.
 * Adding of remaining POCO modules.
+* Preprocessor issue in Net module (ICMPv4PacketImpl.h) hot-fixed with #undef of offending #define from wincrypt.h. (Fix provided in POCO-build)
+* pocomsg.h missing by default. (Fix provided in POCO-build)
