@@ -18,8 +18,8 @@ Here `module` is optional while `target` is required.
 
 **Targets:**
 
-* Windows (MSYS2, MinGW).
-* Android-aarch64.
+* windows (MSYS2, MinGW)
+* android-aarch64
 
 
 **Modules:**
