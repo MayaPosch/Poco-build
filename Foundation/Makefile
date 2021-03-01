@@ -185,12 +185,13 @@ SHARED_COBJECTS := $(addprefix $(OBJROOT)/foundation/shared/,$(notdir $(CSOURCES
 OBJECTS := $(addprefix $(OBJROOT)/foundation/static/,$(notdir $(SOURCES:.cpp=.o)))
 SHARED_OBJECTS := $(addprefix $(OBJROOT)/foundation/shared/,$(notdir $(SOURCES:.cpp=.o)))
 
-$(file >$(TOP)/build/$(TARGET)/poco/obj/foundation/shared/s_objects.psr, $(SHARED_OBJECTS) $(SHARED_COBJECTS))
-
 #$(info Headers are [${HEADERS}])
 
-all: makedir $(TOP)/build/$(TARGET)/poco/lib/$(OUTPUT).a \
+all: makedir objfile $(TOP)/build/$(TARGET)/poco/lib/$(OUTPUT).a \
 		$(TOP)/build/$(TARGET)/poco/lib/$(OUTPUT).so.$(VERSION) $(HEADERS)
+		
+objfile:
+	$(file >$(TOP)/build/$(TARGET)/poco/obj/foundation/shared/s_objects.psr, $(SHARED_OBJECTS) $(SHARED_COBJECTS))
 
 $(OBJROOT)/foundation/static/%.o: src/%.cpp
 	$(CXX) -c -o $@ $< $(CXXFLAGS)

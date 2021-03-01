@@ -63,4 +63,4 @@ clean-util:
 clean-json:
 	$(MAKE) -C ./JSON clean
 
-.PHONY: all clean foundation net util json clean-net clean-foundation clean-json
+.PHONY: all clean foundation net util json clean-net clean-foundation clean-json clean-util
