@@ -6,7 +6,7 @@ TARGET_OS = android
 TARGET_ARCH = aarch64
 
 ifndef ANDROID_ABI_LEVEL
-ANDROID_ABI_LEVEL := 21
+ANDROID_ABI_LEVEL := 24
 endif
 
 ifdef OS
