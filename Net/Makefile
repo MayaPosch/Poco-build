@@ -16,7 +16,7 @@ LD_FLAGS := $(STD_LDFLAGS)
 LIBS := -L$(TOP)/build/$(TARGET)/poco/lib -lPocoFoundation $(STD_LIBS) 
 
 ifeq ($(TARGET), android_aarch64)
-C_SOURCES := $(wildcard src/android/*.c)
+#C_SOURCES := $(wildcard src/android/*.c)
 C_OBJECTS := $(addprefix $(OBJROOT)/net/static/android/,$(notdir $(C_SOURCES:.c=.o)))
 C_SHARED_OBJECTS := $(addprefix $(OBJROOT)/net/shared/android/,$(notdir $(C_SOURCES:.c=.o)))
 endif
