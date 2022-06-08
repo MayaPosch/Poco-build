@@ -22,6 +22,7 @@ export STRIP = arm-linux-androideabi-strip
 export OBJCOPY = arm-linux-androideabi-objcopy
 
 SYSROOT := --sysroot=$(NDK_HOME)/sysroot -I$(NDK_HOME)/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/c++/v1 \
+			-I$(NDK_HOME)/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include \
 				--gcc-toolchain=$(NDK_HOME)/toolchains/arm-linux-androideabi-4.9
 
 
