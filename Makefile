@@ -35,7 +35,7 @@ export TARGET_OS
 export TARGET_ARCH
 export TOOLCHAIN_NAME
 
-all: foundation net netssl util json
+all: foundation crypto util net netssl json
 
 json:
 	$(MAKE) -C ./JSON
@@ -75,4 +75,4 @@ clean-util:
 clean-json:
 	$(MAKE) -C ./JSON clean
 
-.PHONY: all clean foundation net netssl util json clean-net clean-foundation clean-json clean-util
+.PHONY: all clean foundation crypto net netssl util json clean-net clean-foundation clean-json clean-util
