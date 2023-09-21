@@ -3,7 +3,7 @@ include ../../Makefile.$(TARGET)
 OUTPUT := libPocoDataSQLite
 VERSION := 1.10
 
-INCLUDE := $(STD_INCLUDE) -Iinclude -I$(TOP)/build/$(TARGET)/poco/include
+INCLUDE := $(STD_INCLUDE) -Iinclude -I$(TOP)/build/$(TARGET)/poco/include -Isrc
 CFLAGS := $(STD_CFLAGS) $(INCLUDE)
 CXXFLAGS := $(STD_CXXFLAGS) $(INCLUDE)
 SHARED_FLAGS := -fPIC -shared -Wl,-soname,$(OUTPUT).so.$(VERSION)

@@ -35,7 +35,7 @@ export TARGET_OS
 export TARGET_ARCH
 export TOOLCHAIN_NAME
 
-all: foundation crypto util net netssl json data
+all: foundation crypto util net netssl json data data-sqlite
 
 json:
 	$(MAKE) -C ./JSON
@@ -57,8 +57,11 @@ util:
 	
 data:
 	$(MAKE) -C ./Data
+	
+data-sqlite:
+	$(MAKE) -C ./Data/SQLite
 
-clean: clean-json clean-foundation clean-net clean-netssl clean-util clean-data clean-crypto
+clean: clean-json clean-foundation clean-net clean-netssl clean-util clean-data clean-data-sqlite clean-crypto
 
 clean-foundation:
 	$(MAKE) -C ./Foundation clean
@@ -80,5 +83,8 @@ clean-json:
 	
 clean-data:
 	$(MAKE) -C ./Data clean
+	
+clean-data-sqlite:
+	$(MAKE) -C ./Data/SQLite clean
 
 .PHONY: all clean foundation crypto net netssl util json data clean-net clean-foundation clean-json clean-util
