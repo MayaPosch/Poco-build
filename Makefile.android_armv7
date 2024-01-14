@@ -24,9 +24,9 @@ export OBJCOPY = arm-linux-androideabi-objcopy
 SYSROOT := --sysroot=$(NDK_HOME)/sysroot -I$(NDK_HOME)/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/c++/v1 \
 			-I$(NDK_HOME)/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include \
 				--gcc-toolchain=$(NDK_HOME)/toolchains/arm-linux-androideabi-4.9
+# $(SYSROOT)
 
-
-PLATFORM_FLAGS = $(SYSROOT) -DPOCO_ANDROID -DPOCO_NO_FPENVIRONMENT -DPOCO_NO_WSTRING \
+PLATFORM_FLAGS = -DPOCO_ANDROID -DPOCO_NO_FPENVIRONMENT -DPOCO_NO_WSTRING \
 						-DPOCO_NO_SHAREDMEMORY -D_DEBUG -DPOCO_UTIL_NO_XMLCONFIGURATION \
 						-DPOCO_UTIL_NO_JSONCONFIGURATION
 #STD_FLAGS = $(PLATFORM_FLAGS) -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -fdata-sections -fPIE  -fno-strict-aliasing
