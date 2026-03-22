@@ -3,7 +3,8 @@ include ../Makefile.$(TARGET)
 OUTPUT := libPocoJSON
 VERSION := 1.10
 
-INCLUDE = $(STD_INCLUDE) -Iinclude -I$(TOP)/build/$(TARGET)/poco/include
+INCLUDE = $(STD_INCLUDE) -Iinclude -I$(TOP)/build/$(TARGET)/poco/include \
+									-I$(TOP)/dependencies/pdjson/src
 CFLAGS = $(STD_CFLAGS) $(INCLUDE)
 SHARED_FLAGS := -fPIC -shared -Wl,-soname,$(OUTPUT).so.$(VERSION)
 

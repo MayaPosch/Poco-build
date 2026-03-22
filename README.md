@@ -6,7 +6,7 @@ POCO-build targets the current (currently 1.10.1) version of POCO, it adds a zer
 
 ## Installing ##
 
-The POCO-build project files are to be copied into the POCO source folder (v1.10.1) as-is, so that its Makefiles overwrite those in the POCO source folder and sub-folders. Confirm the replacing of any existing files.
+The POCO-build project files are to be copied into the POCO source folder (v1.15.0) as-is, so that its Makefiles overwrite those in the POCO source folder and sub-folders. Confirm the replacing of any existing files.
 
 ## Using ##
 
@@ -19,7 +19,10 @@ Here `module` is optional while `target` is required.
 **Targets:**
 
 * windows (MSYS2, MinGW)
-* android-aarch64
+* android_aarch64
+* android_armv7
+* android_i686
+* android_x64
 
 
 **Modules:**
@@ -28,6 +31,7 @@ Here `module` is optional while `target` is required.
 * net
 * util
 * json
+* data
 
 **Cleaning:**
 

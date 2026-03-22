@@ -3,7 +3,10 @@ include ../Makefile.$(TARGET)
 OUTPUT = libPocoFoundation
 VERSION := 1.10
 
-INCLUDE = $(STD_INCLUDE) -Iinclude -I$(TOP)/build/$(TARGET)/poco/include
+INCLUDE = $(STD_INCLUDE) -Iinclude -I$(TOP)/build/$(TARGET)/poco/include \
+									-I$(TOP)/dependencies/v8_double_conversion/src \
+									-I$(TOP)/dependencies/pcre2/src \
+									-I$(TOP)/dependencies/utf8proc/src
 CFLAGS = $(STD_CFLAGS) $(INCLUDE)
 CXXFLAGS := $(STD_CXXFLAGS) $(INCLUDE)
 SHARED_FLAGS := -fPIC -shared -Wl,-soname,$(OUTPUT).so.$(VERSION)
