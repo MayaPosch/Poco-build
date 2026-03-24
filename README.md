@@ -2,7 +2,7 @@
 
 POCO-build is a replacement build system for the [POCO](http://pocoproject.org/) framework. It consists out a collection of Makefiles that allow for the (cross-)compiling of the POCO libraries.
 
-POCO-build targets the current (currently 1.10.1) version of POCO, it adds a zero-configuration compilation feature, with easy retargeting for new platforms. Currently it focuses on GCC and Clang toolchains.
+POCO-build targets the current (currently 1.15.0) version of POCO, it adds a zero-configuration compilation feature, with easy retargeting for new platforms. Currently it focuses on GCC and Clang toolchains.
 
 ## Installing ##
 

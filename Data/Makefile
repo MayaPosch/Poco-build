@@ -11,7 +11,7 @@ SHARED_FLAGS := -fPIC -shared -Wl,-soname,$(OUTPUT).so.$(VERSION)
 
 OBJROOT := ../build/$(TARGET)/poco/obj
 INCLOUT := $(TOP)/build/$(TARGET)/poco
-SOURCES := $(wildcard src/*.cpp)
+SOURCES := $(wildcard src/*.cpp) $(wildcard src/SQLParser/*.cpp)
 HEADERS := $(addprefix $(INCLOUT)/,$(wildcard include/Poco/Data/*.h))
 LD_FLAGS := $(STD_LDFLAGS)
 LIBS := -L$(TOP)/build/$(TARGET)/poco/lib -lPocoFoundation $(STD_LIBS)

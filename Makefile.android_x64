@@ -16,9 +16,12 @@ endif
 export CC = x86_64-linux-android$(ANDROID_ABI_LEVEL)-clang$(TOOLCHAIN_POSTFIX)
 export CXX = x86_64-linux-android$(ANDROID_ABI_LEVEL)-clang++$(TOOLCHAIN_POSTFIX)
 export CPP = x86_64-linux-android-cpp
-export AR = x86_64-linux-android-ar
-export LD = x86_64-linux-android-ld
-export STRIP = x86_64-linux-android-strip
+#export AR = x86_64-linux-android-ar
+export AR = llvm-ar
+#export LD = x86_64-linux-android-ld
+export LD = ld
+#export STRIP = x86_64-linux-android-strip
+export STRIP = llvm-strip
 export OBJCOPY = x86_64-linux-android-objcopy
 
 SYSROOT := --sysroot=$(NDK_HOME)/sysroot -I$(NDK_HOME)/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/c++/v1 \

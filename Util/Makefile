@@ -4,7 +4,7 @@ OUTPUT = libPocoUtil
 VERSION := 1.10
 
 INCLUDE = $(STD_INCLUDE) -Iinclude -I$(TOP)/build/$(TARGET)/poco/include
-CFLAGS = $(STD_CFLAGS) $(INCLUDE)
+CXXFLAGS = $(STD_CXXFLAGS) $(INCLUDE)
 SHARED_FLAGS := -fPIC -shared -Wl,-soname,$(OUTPUT).so.$(VERSION)
 
 OBJROOT = ../build/$(TARGET)/poco/obj
@@ -55,10 +55,10 @@ all: makedir $(TOP)/build/$(TARGET)/poco/lib/$(OUTPUT).a \
 		$(TOP)/build/$(TARGET)/poco/lib/$(OUTPUT).so.$(VERSION) $(HEADERS)
 
 $(OBJROOT)/util/static%.o: src/%.cpp
-	$(CXX) -c -o $@ $< $(CFLAGS)
+	$(CXX) -c -o $@ $< $(CXXFLAGS)
 	
 $(OBJROOT)/util/shared/%.o: src/%.cpp
-	$(CXX) -c -o $@ $< $(CFLAGS) $(SHARED_FLAGS)
+	$(CXX) -c -o $@ $< $(CXXFLAGS) $(SHARED_FLAGS)
 	
 makedir:
 	$(MKDIR) $(TOP)/build/$(TARGET)/poco/obj/util/static
