@@ -23,6 +23,7 @@ LIBS := $(STD_LIBS) -lz
 #HEADERS := $(filter-out include/Poco/OpcomChannel.h, $(SOURCES))
 
 CSOURCES := $(wildcard src/*.c)
+PCRE2_SRC := $(wildcard $(TOP)/dependencies/pcre2/src/*.c)
 SOURCES := AbstractObserver.cpp \
 ActiveDispatcher.cpp \
 ArchiveStrategy.cpp \
@@ -78,6 +79,7 @@ HashStatistic.cpp \
 HexBinaryDecoder.cpp \
 HexBinaryEncoder.cpp \
 InflatingStream.cpp \
+IOLock.cpp \
 JSONString.cpp \
 Latin1Encoding.cpp \
 Latin2Encoding.cpp \
@@ -185,6 +187,8 @@ endif
 
 COBJECTS := $(addprefix $(OBJROOT)/foundation/static/,$(notdir $(CSOURCES:.c=.o)))
 SHARED_COBJECTS := $(addprefix $(OBJROOT)/foundation/shared/,$(notdir $(CSOURCES:.c=.o)))
+PCRE2_OBJ := $(addprefix $(OBJROOT)/foundation/static/pcre2/,$(notdir $(PCRE2_SRC:.c=.o)))
+SH_PCRE2_OBJ := $(addprefix $(OBJROOT)/foundation/shared/pcre2/,$(notdir $(PCRE2_SRC:.c=.o)))
 OBJECTS := $(addprefix $(OBJROOT)/foundation/static/,$(notdir $(SOURCES:.cpp=.o)))
 SHARED_OBJECTS := $(addprefix $(OBJROOT)/foundation/shared/,$(notdir $(SOURCES:.cpp=.o)))
 
@@ -194,12 +198,15 @@ all: makedir objfile $(TOP)/build/$(TARGET)/poco/lib/$(OUTPUT).a \
 		$(TOP)/build/$(TARGET)/poco/lib/$(OUTPUT).so.$(VERSION) $(HEADERS)
 		
 objfile:
-	$(file >$(TOP)/build/$(TARGET)/poco/obj/foundation/shared/s_objects.psr, $(SHARED_OBJECTS) $(SHARED_COBJECTS))
+	$(file >$(TOP)/build/$(TARGET)/poco/obj/foundation/shared/s_objects.psr, $(SHARED_OBJECTS) $(SHARED_COBJECTS) $(SH_PCRE2_OBJ))
 
 $(OBJROOT)/foundation/static/%.o: src/%.cpp
 	$(CXX) -c -o $@ $< $(CXXFLAGS)
 
 $(OBJROOT)/foundation/static/%.o: src/%.c
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+$(OBJROOT)/foundation/static/pcre2/%.o: $(TOP)/dependencies/pcre2/src/%.c
 	$(CC) -c -o $@ $< $(CFLAGS)
 	
 $(OBJROOT)/foundation/shared/%.o: src/%.cpp
@@ -208,22 +215,25 @@ $(OBJROOT)/foundation/shared/%.o: src/%.cpp
 $(OBJROOT)/foundation/shared/%.o: src/%.c
 	$(CC) -c -o $@ $< $(CFLAGS) $(SHARED_FLAGS)
 	
+$(OBJROOT)/foundation/shared/pcre2/%.o: $(TOP)/dependencies/pcre2/src/%.c
+	$(CC) -c -o $@ $< $(CFLAGS) $(SHARED_FLAGS)
+	
 makedir:
-	$(MKDIR) $(TOP)/build/$(TARGET)/poco/obj/foundation/static
-	$(MKDIR) $(TOP)/build/$(TARGET)/poco/obj/foundation/shared
+	$(MKDIR) $(TOP)/build/$(TARGET)/poco/obj/foundation/static/pcre2
+	$(MKDIR) $(TOP)/build/$(TARGET)/poco/obj/foundation/shared/pcre2
 	$(MKDIR) $(TOP)/build/$(TARGET)/poco/lib
 	$(MKDIR) $(TOP)/build/$(TARGET)/poco/include/Poco/Dynamic
 	
 $(INCLOUT)/%.h: %.h
 	$(CP) $< $(INCLOUT)/$<
 
-$(TOP)/build/$(TARGET)/poco/lib/$(OUTPUT).a: $(OBJECTS) $(COBJECTS)
+$(TOP)/build/$(TARGET)/poco/lib/$(OUTPUT).a: $(OBJECTS) $(COBJECTS) $(PCRE2_OBJ)
 	-rm -f $@
 	$(AR) rcs $@ $^
 	cp $@ $@.debug
 	$(STRIP) -S --strip-unneeded $@
 	
-$(TOP)/build/$(TARGET)/poco/lib/$(OUTPUT).so.$(VERSION): $(SHARED_OBJECTS) $(SHARED_COBJECTS)
+$(TOP)/build/$(TARGET)/poco/lib/$(OUTPUT).so.$(VERSION): $(SHARED_OBJECTS) $(SHARED_COBJECTS) $(SH_PCRE2_OBJ)
 	$(CXX) -o $@ $(SHARED_FLAGS) $(LD_FLAGS) @$(TOP)/build/$(TARGET)/poco/obj/foundation/shared/s_objects.psr $(LIBS)
 	cp $@ $@.debug
 	$(STRIP) -S --strip-unneeded $@
